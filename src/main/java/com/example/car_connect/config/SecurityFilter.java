@@ -23,7 +23,7 @@ public class SecurityFilter {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/owner/**", "/cars/**").hasAnyRole("OWNER", "ADMIN")
+//                        .requestMatchers("/owner/**", "/cars/**").hasAnyRole("OWNER", "ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(form -> form
