@@ -1,8 +1,8 @@
 package com.example.car_connect.controller;
 
-import com.example.car_connect.model.dto.AuthResponse;
-import com.example.car_connect.model.dto.LoginRequest;
-import com.example.car_connect.model.dto.RegisterRequest;
+import com.example.car_connect.model.dto.auth.AuthResponse;
+import com.example.car_connect.model.dto.auth.LoginRequest;
+import com.example.car_connect.model.dto.auth.RegisterRequest;
 import com.example.car_connect.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

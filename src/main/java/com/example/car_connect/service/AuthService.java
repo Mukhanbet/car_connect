@@ -1,9 +1,9 @@
 package com.example.car_connect.service;
 
 import com.example.car_connect.model.domain.User;
-import com.example.car_connect.model.dto.AuthResponse;
-import com.example.car_connect.model.dto.LoginRequest;
-import com.example.car_connect.model.dto.RegisterRequest;
+import com.example.car_connect.model.dto.auth.AuthResponse;
+import com.example.car_connect.model.dto.auth.LoginRequest;
+import com.example.car_connect.model.dto.auth.RegisterRequest;
 
 public interface AuthService {
     AuthResponse register(RegisterRequest request);

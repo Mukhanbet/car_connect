@@ -1,8 +1,7 @@
-package com.example.car_connect.model.dto;
+package com.example.car_connect.model.dto.auth;
 
 import com.example.car_connect.model.enums.Role;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 
 @Data
 public class AuthResponse {
