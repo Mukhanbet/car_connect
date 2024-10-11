@@ -6,9 +6,11 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import com.example.car_connect.exception.CustomException;
 import com.example.car_connect.mapper.CarImageMapper;
+import com.example.car_connect.model.domain.Car;
 import com.example.car_connect.model.domain.CarImage;
 import com.example.car_connect.model.dto.image.CarImageResponse;
 import com.example.car_connect.repository.CarImageRepository;
+import com.example.car_connect.repository.CarRepository;
 import com.example.car_connect.service.CarImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -28,22 +32,31 @@ import java.util.UUID;
 @Slf4j
 public class CarImageServiceImpl implements CarImageService {
     private final CarImageRepository carImageRepository;
+    private final CarRepository carRepository;
     private final CarImageMapper carImageMapper;
     private final AmazonS3 s3Client;
     @Value("${application.bucket.name}")
     private String bucketName;
 
     @Override
-    public CarImageResponse uploadCarImage(MultipartFile image) {
-        File fileObj = convertMultipartFileToFile(image);
-        String fileName = System.currentTimeMillis() + "_" + Objects.requireNonNull(image.getOriginalFilename()).replaceAll("\\s+", "_");
-        s3Client.putObject(bucketName, fileName, fileObj);
-        boolean delete = fileObj.delete();
-        if (!delete) {
-            throw new CustomException("Failed to delete file", HttpStatus.INTERNAL_SERVER_ERROR);
+    public List<CarImageResponse> uploadCarImage(List<MultipartFile> images, UUID carId) {
+        if (images.isEmpty()) {
+            throw new CustomException("Incorrect file", HttpStatus.BAD_REQUEST);
         }
-        CarImage carImage = carImageRepository.save(carImageMapper.toCarImage(fileName));
-        return carImageMapper.toCarImageResponse(carImage);
+        Car car = carRepository.findById(carId).orElseThrow(() -> new CustomException("Car not found", HttpStatus.NOT_FOUND));
+        List<CarImage> carImages = new ArrayList<>();
+        for (MultipartFile image : images) {
+            File fileObj = convertMultipartFileToFile(image);
+            String fileName = System.currentTimeMillis() + "_" + Objects.requireNonNull(image.getOriginalFilename()).replaceAll("\\s+", "_");
+            s3Client.putObject(bucketName, fileName, fileObj);
+            boolean delete = fileObj.delete();
+            if (!delete) {
+                throw new CustomException("Failed to delete file", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            CarImage carImage = carImageRepository.save(carImageMapper.toCarImage(fileName, car));
+            carImages.add(carImage);
+        }
+        return carImageMapper.toCarImageResponseList(carImages);
     }
 
     @Override

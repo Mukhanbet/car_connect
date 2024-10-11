@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URLConnection;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,9 +20,9 @@ import java.util.UUID;
 public class CarImageController {
     private final CarImageService carImageService;
 
-    @PostMapping("/upload")
-    public CarImageResponse uploadCarImage(MultipartFile image) {
-        return carImageService.uploadCarImage(image);
+    @PostMapping("/upload/{carId}")
+    public List<CarImageResponse> uploadCarImage(List<MultipartFile> images, @PathVariable UUID carId) {
+        return carImageService.uploadCarImage(images, carId);
     }
 
     @GetMapping("/download/{imageId}")
