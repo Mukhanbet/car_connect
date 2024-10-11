@@ -5,10 +5,7 @@ import com.example.car_connect.model.dto.auth.LoginRequest;
 import com.example.car_connect.model.dto.auth.RegisterRequest;
 import com.example.car_connect.service.AuthService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -17,17 +14,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public AuthResponse register(RegisterRequest request) {
+    public AuthResponse register(@RequestBody RegisterRequest request) {
         return authService.register(request);
     }
 
     @PostMapping("/login")
-    public AuthResponse login(LoginRequest request) {
+    public AuthResponse login(@RequestBody LoginRequest request) {
         return authService.login(request);
-    }
-
-    @GetMapping("/test")
-    public String message() {
-        return "It's working";
     }
 }

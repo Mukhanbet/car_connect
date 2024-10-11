@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,4 +26,7 @@ public class Car {
     private LocalDateTime availableTo;
     private double rating;
     private String description;
+
+    @OneToMany(mappedBy = "car")
+    private List<CarImage> images;
 }
