@@ -16,15 +16,9 @@ import java.util.UUID;
 @RequestMapping("/cars")
 public class CarController {
     private CarService carService;
-    private CarImageService carImageService;
 
     @PostMapping("/register")
     public void register(@RequestBody CarRegisterRequest request) {
         carService.register(request);
-    }
-
-    @GetMapping("/images/{carId}")
-    public List<CarImageResponse> getImages(@PathVariable UUID carId) {
-        return carService.getImages(carId);
     }
 }

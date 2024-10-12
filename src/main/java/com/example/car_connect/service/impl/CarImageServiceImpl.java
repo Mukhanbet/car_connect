@@ -15,6 +15,7 @@ import com.example.car_connect.service.CarImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,6 +58,12 @@ public class CarImageServiceImpl implements CarImageService {
             carImages.add(carImage);
         }
         return carImageMapper.toCarImageResponseList(carImages);
+    }
+
+    @Override
+    public List<CarImageResponse> getImages(UUID carId, int page, int size) {
+        Car car = carRepository.findById(carId).orElseThrow(() -> new CustomException("Car not found", HttpStatus.NOT_FOUND));
+        return carImageMapper.toCarImageResponseList(carImageRepository.findAllByCar(car, PageRequest.of(page, size)));
     }
 
     @Override

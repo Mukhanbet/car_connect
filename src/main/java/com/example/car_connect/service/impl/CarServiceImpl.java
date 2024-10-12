@@ -20,18 +20,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
-    private final CarImageRepository carImageRepository;
     private final CarMapper carMapper;
-    private final CarImageMapper carImageMapper;
 
     @Override
     public void register(CarRegisterRequest request) {
         carRepository.save(carMapper.toCar(request));
-    }
-
-    @Override
-    public List<CarImageResponse> getImages(UUID carId) {
-        Car car = carRepository.findById(carId).orElseThrow(() -> new CustomException("Car not found", HttpStatus.NOT_FOUND));
-        return carImageMapper.toCarImageResponseList(carImageRepository.findAllByCar(car));
     }
 }

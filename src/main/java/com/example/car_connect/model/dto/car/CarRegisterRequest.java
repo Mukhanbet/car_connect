@@ -20,7 +20,7 @@ public class CarRegisterRequest {
     private String price;
     @NotBlank(message = "Location cannot be empty or consist only of spaces")
     private String location;
-    @Past(message = "Start date must be in the past")
+    @FutureOrPresent(message = "Start date must be in the present or future")
     private LocalDateTime availableFrom;
     @Future(message = "The end date must be in the future")
     private LocalDateTime availableTo;
