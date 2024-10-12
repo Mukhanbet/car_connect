@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "reviewer")
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "tenant")
+    private List<Booking> bookings;
+
     public User(UUID id, String name, String email, String password, String phone, Role role) {
         this.id = id;
         this.name = name;
