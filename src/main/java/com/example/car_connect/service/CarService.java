@@ -8,5 +8,4 @@ import java.util.UUID;
 
 public interface CarService {
     void register(CarRegisterRequest request);
-    List<CarImageResponse> getImages(UUID carId);
 }

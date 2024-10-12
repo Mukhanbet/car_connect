@@ -25,6 +25,15 @@ public class CarImageController {
         return carImageService.uploadCarImage(images, carId);
     }
 
+    @GetMapping("/{carId}")
+    public List<CarImageResponse> getImages(
+            @PathVariable UUID carId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return carImageService.getImages(carId, page, size);
+    }
+
     @GetMapping("/download/{imageId}")
     public ResponseEntity<?> downloadCarImage(@PathVariable UUID imageId) {
         CarImage carImage = carImageService.getCarImageData(imageId);

@@ -29,4 +29,7 @@ public class Car {
 
     @OneToMany(mappedBy = "car")
     private List<CarImage> images;
+
+    @OneToMany(mappedBy = "car")
+    private List<Review> reviews;
 }
