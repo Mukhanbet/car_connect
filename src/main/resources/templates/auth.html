@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CarConnect - Login</title>
+	<link rel="stylesheet" th:href="@{/auth/css/style.css}">
+</head>
+<body>
+<div class="form-structor">
+	<!-- Form register -->
+	<form th:action="@{/auth/register}" method="post" th:object="${registerRequest}">
+		<div class="signup">
+			<h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+			<div class="form-holder">
+				<input type="text" th:field="*{name}" class="input" placeholder="Name" required/>
+				<input type="email" th:field="*{email}" class="input" placeholder="Email" required/>
+				<input type="text" th:field="*{phone}" class="input" placeholder="Phone" required>
+				<input type="password" th:field="*{password}" class="input" placeholder="Password" required/>
+				<select th:field="*{role}" class="input" required>
+					<option value="">Select Role</option>
+					<option value="TENANT">Tenant</option>
+					<option value="OWNER">Owner</option>
+				</select>
+			</div>
+			<button class="submit-btn" type="submit">Sign up</button>
+		</div>
+	</form>
+
+	<!-- Form login -->
+	<form th:action="@{/auth/login}" method="post" th:object="${loginRequest}">
+		<div class="login slide-up">
+			<div class="center">
+				<h2 class="form-title" id="login"><span>or</span>Log in</h2>
+				<div class="form-holder">
+					<input type="email" th:field="*{email}" class="input" placeholder="Email" required/>
+					<input type="password" th:field="*{password}" class="input" placeholder="Password" required/>
+				</div>
+				<button class="submit-btn" type="submit">Log in</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script th:src="@{/auth/js/script.js}"></script>
+</body>
+</html>
