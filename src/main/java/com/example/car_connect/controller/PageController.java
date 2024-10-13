@@ -16,4 +16,49 @@ public class PageController {
         model.addAttribute("loginRequest", new LoginRequest());
         return "auth";
     }
+
+    @GetMapping("/home")
+    public String home(Model model) {
+        return "index";
+    }
+
+    @GetMapping("/about")
+    public String about(Model model) {
+        return "about";
+    }
+
+    @GetMapping("/booking")
+    public String booking(Model model) {
+        return "booking";
+    }
+
+    @GetMapping("/car")
+    public String car(Model model) {
+        return "car";
+    }
+
+    @GetMapping("/contact")
+    public String contact(Model model) {
+        return "contact";
+    }
+
+    @GetMapping("/detail")
+    public String detail(Model model) {
+        return "detail";
+    }
+
+    @GetMapping("/service")
+    public String service(Model model) {
+        return "service";
+    }
+
+    @GetMapping("/team")
+    public String team(Model model) {
+        return "team";
+    }
+
+    @GetMapping("/testimonial")
+    public String testimonial(Model model) {
+        return "testimonial";
+    }
 }

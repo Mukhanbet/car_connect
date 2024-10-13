@@ -1,3 +1,24 @@
+var currentLocation = window.location.pathname;
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link) {
+        if (link.getAttribute('href') === currentLocation) {
+            link.classList.add('active');
+        }
+    });
+
+    document.querySelectorAll('.dropdown-menu .dropdown-item').forEach(function(item) {
+        if (item.getAttribute('href') === currentLocation) {
+            var dropdownLink = item.closest('.dropdown').querySelector('.nav-link.dropdown-toggle');
+            dropdownLink.classList.add('active'); // Добавляем класс active к родительской ссылке
+
+            item.classList.add('active');
+        }
+    });
+});
+
+
+
 (function ($) {
     "use strict";
     

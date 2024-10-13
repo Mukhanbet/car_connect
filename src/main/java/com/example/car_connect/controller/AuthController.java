@@ -17,12 +17,12 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@ModelAttribute RegisterRequest request) {
         AuthResponse response = authService.register(request);
-        return "redirect:/pages/auth";
+        return "redirect:/pages/home";
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute LoginRequest request) {
         AuthResponse response = authService.login(request);
-        return "redirect:/pages/auth";
+        return "redirect:/pages/home";
     }
 }
