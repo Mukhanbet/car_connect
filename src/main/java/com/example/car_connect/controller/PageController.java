@@ -2,6 +2,7 @@ package com.example.car_connect.controller;
 
 import com.example.car_connect.model.dto.auth.LoginRequest;
 import com.example.car_connect.model.dto.auth.RegisterRequest;
+import com.example.car_connect.model.dto.car.CarFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ public class PageController {
 
     @GetMapping("/home")
     public String home(Model model) {
+        model.addAttribute("carFilter", new CarFilter());
         return "index";
     }
 

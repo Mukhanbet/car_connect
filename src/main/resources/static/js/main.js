@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Date and time picker
     $('.date').datetimepicker({
-        format: 'L'
+        format: 'MM/DD/YYYY'
     });
     $('.time').datetimepicker({
         format: 'LT'

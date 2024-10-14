@@ -3,7 +3,7 @@ package com.example.car_connect.model.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,10 +20,9 @@ public class Car {
     private String model;
     private String color;
     private int year;
-    private String price;
+    private double price;
     private String location;
-    private LocalDateTime availableFrom;
-    private LocalDateTime availableTo;
+    private LocalDate availableFrom;
     private double rating;
     private String description;
 
