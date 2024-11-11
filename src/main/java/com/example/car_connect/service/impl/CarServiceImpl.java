@@ -6,6 +6,7 @@ import com.example.car_connect.model.dto.car.CarFilter;
 import com.example.car_connect.model.dto.car.CarRegisterRequest;
 import com.example.car_connect.model.dto.car.CarResponse;
 import com.example.car_connect.model.dto.car.CarResponseDetail;
+import com.example.car_connect.model.dto.image.CarImageResponse;
 import com.example.car_connect.repository.CarRepository;
 import com.example.car_connect.service.CarService;
 import com.example.car_connect.specification.CarSpecification;
@@ -39,5 +40,10 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarResponseDetail getDetail(UUID id) {
         return carMapper.toResponseDetail(carRepository.findById(id).orElseThrow(() -> new RuntimeException("Car not found")));
+    }
+
+    @Override
+    public List<CarResponse> getRelatedCars(CarFilter filter) {
+        return carMapper.toCarResponseList(carRepository.findAllRelatedCars(filter.getMake(), filter.getModel(), filter.getColor(), filter.getYear(), filter.getPrice(), filter.getLocation(), filter.getAvailableFrom(), filter.getRating()));
     }
 }

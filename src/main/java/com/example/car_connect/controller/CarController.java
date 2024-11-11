@@ -43,4 +43,9 @@ public class CarController {
     public CarResponseDetail getDetail(@PathVariable UUID id) {
         return carService.getDetail(id);
     }
+
+    @GetMapping("/related_cars")
+    public List<CarResponse> getRelatedCars(@RequestBody CarFilter filter) {
+        return carService.getRelatedCars(filter);
+    }
 }

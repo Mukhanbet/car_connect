@@ -13,4 +13,5 @@ public interface CarService {
     void register(CarRegisterRequest request);
     List<CarResponse> search(CarFilter filter, int page, int size);
     CarResponseDetail getDetail(UUID id);
+    List<CarResponse> getRelatedCars(CarFilter filter);
 }
