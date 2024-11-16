@@ -21,11 +21,15 @@ public class CarImageController {
     private final CarImageService carImageService;
 
     @PostMapping("/upload/{carId}")
-    public List<CarImageResponse> uploadCarImage(List<MultipartFile> images, @PathVariable UUID carId) {
-        return carImageService.uploadCarImage(images, carId);
+    public CarImageResponse uploadCarImage(
+            @RequestPart List<MultipartFile> images,
+            @RequestPart MultipartFile fonImage,
+            @PathVariable UUID carId
+    ) {
+        return carImageService.uploadCarImage(images, fonImage, carId);
     }
 
-    @GetMapping("/{carId}")
+    @GetMapping("/cars/{carId}")
     public List<CarImageResponse> getImages(
             @PathVariable UUID carId,
             @RequestParam(defaultValue = "0") int page,
@@ -34,10 +38,8 @@ public class CarImageController {
         return carImageService.getImages(carId, page, size);
     }
 
-    @GetMapping("/download/{imageId}")
-    public ResponseEntity<?> downloadCarImage(@PathVariable UUID imageId) {
-        CarImage carImage = carImageService.getCarImageData(imageId);
-        String fileName = carImage.getName();
+    @GetMapping("/{fileName}")
+    public ResponseEntity<?> downloadCarImage(@PathVariable String fileName) {
         String contentType = URLConnection.guessContentTypeFromName(fileName);
 
         if (contentType == null) {
@@ -46,7 +48,7 @@ public class CarImageController {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + fileName + "\"")
-                .body(carImageService.downloadCarImage(imageId));
+                .body(carImageService.downloadCarImage(fileName));
     }
 
     @DeleteMapping("/delete/{imageId}")

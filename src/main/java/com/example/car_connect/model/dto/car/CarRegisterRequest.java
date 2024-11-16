@@ -1,10 +1,9 @@
 package com.example.car_connect.model.dto.car;
 
-import jakarta.persistence.Lob;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 public class CarRegisterRequest {
@@ -17,13 +16,11 @@ public class CarRegisterRequest {
     @Max(value = 2024, message = "The year cannot be greater than 2024")
     private int year;
     @NotBlank(message = "Price cannot be empty or consist only of spaces")
-    private String price;
+    private double price;
     @NotBlank(message = "Location cannot be empty or consist only of spaces")
     private String location;
     @FutureOrPresent(message = "Start date must be in the present or future")
-    private LocalDateTime availableFrom;
-    @Future(message = "The end date must be in the future")
-    private LocalDateTime availableTo;
+    private LocalDate availableFrom;
     @Size(min = 2, max = 400, message = "Description length must be from 2 to 400 characters")
     private String description;
 }

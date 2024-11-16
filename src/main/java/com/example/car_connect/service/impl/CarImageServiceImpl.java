@@ -1,6 +1,8 @@
 package com.example.car_connect.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
@@ -8,6 +10,7 @@ import com.example.car_connect.exception.CustomException;
 import com.example.car_connect.mapper.CarImageMapper;
 import com.example.car_connect.model.domain.Car;
 import com.example.car_connect.model.domain.CarImage;
+import com.example.car_connect.model.dto.image.CarFonImageResponse;
 import com.example.car_connect.model.dto.image.CarImageResponse;
 import com.example.car_connect.repository.CarImageRepository;
 import com.example.car_connect.repository.CarRepository;
@@ -40,8 +43,8 @@ public class CarImageServiceImpl implements CarImageService {
     private String bucketName;
 
     @Override
-    public List<CarImageResponse> uploadCarImage(List<MultipartFile> images, UUID carId) {
-        if (images.isEmpty()) {
+    public CarFonImageResponse uploadCarImage(List<MultipartFile> images, MultipartFile fonImage, UUID carId) {
+        if (images.isEmpty() || fonImage.isEmpty()) {
             throw new CustomException("Incorrect file", HttpStatus.BAD_REQUEST);
         }
         Car car = carRepository.findById(carId).orElseThrow(() -> new CustomException("Car not found", HttpStatus.NOT_FOUND));
@@ -49,15 +52,31 @@ public class CarImageServiceImpl implements CarImageService {
         for (MultipartFile image : images) {
             File fileObj = convertMultipartFileToFile(image);
             String fileName = System.currentTimeMillis() + "_" + Objects.requireNonNull(image.getOriginalFilename()).replaceAll("\\s+", "_");
-            s3Client.putObject(bucketName, fileName, fileObj);
+            s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
             boolean delete = fileObj.delete();
             if (!delete) {
                 throw new CustomException("Failed to delete file", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            CarImage carImage = carImageRepository.save(carImageMapper.toCarImage(fileName, car));
+            CarImage carImage = carImageMapper.toCarImage(fileName, s3Client.getUrl(bucketName, fileName).toString());
+            carImage.setCarDetail(car);
+            carImage = carImageRepository.save(carImage);
             carImages.add(carImage);
         }
-        return carImageMapper.toCarImageResponseList(carImages);
+
+        File fileObj = convertMultipartFileToFile(fonImage);
+        String fileName = System.currentTimeMillis() + "_" + Objects.requireNonNull(fileObj.getName()).replaceAll("\\s+", "_");
+        s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj)
+                .withCannedAcl(CannedAccessControlList.PublicRead));
+        boolean delete = fileObj.delete();
+        if (!delete) {
+            throw new CustomException("Failed to delete file", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        CarImage carImage = carImageRepository.save(carImageMapper.toCarImage(fileName, s3Client.getUrl(bucketName, fileName).toString()));
+        car.setFonImage(carImage);
+        car.setImages(carImages);
+        carRepository.save(car);
+        return carImageMapper.toCarFonImageResponse(carImage, carImages);
     }
 
     @Override
@@ -67,8 +86,8 @@ public class CarImageServiceImpl implements CarImageService {
     }
 
     @Override
-    public byte[] downloadCarImage(UUID imageId) {
-        CarImage carImage = carImageRepository.findById(imageId).orElseThrow(() -> new CustomException("Image not found", HttpStatus.NOT_FOUND));
+    public byte[] downloadCarImage(String fileName) {
+        CarImage carImage = carImageRepository.findByName(fileName).orElseThrow(() -> new CustomException("Image not found", HttpStatus.NOT_FOUND));
         S3Object s3Object = s3Client.getObject(bucketName, carImage.getName());
         S3ObjectInputStream inputStream = s3Object.getObjectContent();
         try {

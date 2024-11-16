@@ -27,10 +27,10 @@ public class SecurityFilter {
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/process")
-                        .defaultSuccessUrl("/success")
-                        .failureForwardUrl("/fail")
+                        .loginPage("/pages/auth")
+                        .loginProcessingUrl("/pages/auth")
+                        .defaultSuccessUrl("/pages/auth")
+                        .failureForwardUrl("/pages/auth")
                         .permitAll()
                         .disable())
                 .exceptionHandling(exception -> exception
