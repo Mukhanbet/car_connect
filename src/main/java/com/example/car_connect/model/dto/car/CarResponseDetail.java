@@ -18,5 +18,6 @@ public class CarResponseDetail {
     private LocalDate availableFrom;
     private Double rating;
     private List<String> images;
+    private String fonImage;
     private String description;
 }

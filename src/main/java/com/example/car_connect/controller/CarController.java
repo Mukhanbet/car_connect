@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,8 +24,13 @@ public class CarController {
     private CarService carService;
 
     @PostMapping("/register")
-    public void register(@RequestBody CarRegisterRequest request) {
-        carService.register(request);
+    public CarResponseDetail register(
+            @RequestPart CarRegisterRequest request,
+            @RequestPart List<MultipartFile> images,
+            @RequestPart MultipartFile fonImage,
+            @RequestHeader("Authorization") String token
+    ) {
+        return carService.register(request, images, fonImage, token);
     }
 
 //    @GetMapping("/search")
@@ -42,6 +48,11 @@ public class CarController {
     @GetMapping("/{id}")
     public CarResponseDetail getDetail(@PathVariable UUID id) {
         return carService.getDetail(id);
+    }
+
+    @GetMapping
+    public List<CarResponse> all() {
+        return carService.all();
     }
 
     @GetMapping("/related_cars")

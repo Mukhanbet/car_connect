@@ -4,6 +4,7 @@ import com.example.car_connect.mapper.CarMapper;
 import com.example.car_connect.model.domain.Car;
 import com.example.car_connect.model.domain.CarImage;
 import com.example.car_connect.model.domain.Review;
+import com.example.car_connect.model.domain.User;
 import com.example.car_connect.model.dto.car.CarRegisterRequest;
 import com.example.car_connect.model.dto.car.CarResponse;
 import com.example.car_connect.model.dto.car.CarResponseDetail;
@@ -15,7 +16,7 @@ import java.util.List;
 @Component
 public class CarMapperImpl implements CarMapper {
     @Override
-    public Car toCar(CarRegisterRequest request) {
+    public Car toCar(CarRegisterRequest request, User owner) {
         Car car = new Car();
         car.setMake(request.getMake());
         car.setModel(request.getModel());
@@ -26,6 +27,7 @@ public class CarMapperImpl implements CarMapper {
         car.setAvailableFrom(request.getAvailableFrom());
         car.setDescription(request.getDescription());
         car.setRating(0.0);
+        car.setOwner(owner);
         return car;
     }
 
@@ -36,12 +38,8 @@ public class CarMapperImpl implements CarMapper {
         response.setModel(car.getModel());
         response.setYear(car.getYear());
         response.setPrice(car.getPrice());
-        if (car.getImages() != null && !car.getImages().isEmpty()) {
-            for (CarImage image : car.getImages()) {
-                response.getImagesPaths().add(image.getPath());
-            }
-        } else {
-            response.setImagesPaths(null);
+        if (car.getFonImage() != null) {
+            response.setFonImage(car.getFonImage().getPath());
         }
         return response;
     }
@@ -58,13 +56,16 @@ public class CarMapperImpl implements CarMapper {
         detail.setLocation(car.getLocation());
         detail.setAvailableFrom(car.getAvailableFrom());
         detail.setRating(car.getRating());
+        List<String> images = new ArrayList<>();
         if (car.getImages() != null && !car.getImages().isEmpty()) {
             for (CarImage image : car.getImages()) {
-                detail.getImages().add(image.getPath());
+                images.add(image.getPath());
             }
+            detail.setImages(images);
         } else {
             detail.setImages(null);
         }
+        detail.setFonImage(car.getFonImage().getPath());
         detail.setDescription(car.getDescription());
         return detail;
     }

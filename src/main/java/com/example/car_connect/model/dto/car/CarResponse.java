@@ -12,5 +12,5 @@ public class CarResponse {
     private String model;
     private Integer year;
     private Double price;
-    private List<String> imagesPaths;
+    private String fonImage;
 }

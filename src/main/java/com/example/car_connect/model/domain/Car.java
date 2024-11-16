@@ -26,9 +26,17 @@ public class Car {
     private double rating;
     private String description;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "carDetail")
     private List<CarImage> images;
+
+    @OneToOne
+    @JoinColumn
+    private CarImage fonImage;
 
     @OneToMany(mappedBy = "car")
     private List<Review> reviews;
+
+    @ManyToOne
+    @JoinColumn
+    private User owner;
 }
