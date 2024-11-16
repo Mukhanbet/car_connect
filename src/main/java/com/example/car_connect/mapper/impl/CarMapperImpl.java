@@ -4,8 +4,10 @@ import com.example.car_connect.mapper.CarMapper;
 import com.example.car_connect.model.domain.Car;
 import com.example.car_connect.model.domain.CarImage;
 import com.example.car_connect.model.domain.Review;
+import com.example.car_connect.model.domain.User;
 import com.example.car_connect.model.dto.car.CarRegisterRequest;
 import com.example.car_connect.model.dto.car.CarResponse;
+import com.example.car_connect.model.dto.car.CarResponseDetail;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import java.util.List;
 @Component
 public class CarMapperImpl implements CarMapper {
     @Override
-    public Car toCar(CarRegisterRequest request) {
+    public Car toCar(CarRegisterRequest request, User owner) {
         Car car = new Car();
         car.setMake(request.getMake());
         car.setModel(request.getModel());
@@ -25,6 +27,7 @@ public class CarMapperImpl implements CarMapper {
         car.setAvailableFrom(request.getAvailableFrom());
         car.setDescription(request.getDescription());
         car.setRating(0.0);
+        car.setOwner(owner);
         return car;
     }
 
@@ -35,26 +38,36 @@ public class CarMapperImpl implements CarMapper {
         response.setModel(car.getModel());
         response.setYear(car.getYear());
         response.setPrice(car.getPrice());
-        response.setLocation(car.getLocation());
-        response.setAvailableFrom(car.getAvailableFrom());
-        response.setRating(car.getRating());
-        response.setDescription(car.getDescription());
+        if (car.getFonImage() != null) {
+            response.setFonImage(car.getFonImage().getPath());
+        }
+        return response;
+    }
+
+    @Override
+    public CarResponseDetail toResponseDetail(Car car) {
+        CarResponseDetail detail = new CarResponseDetail();
+        detail.setId(car.getId());
+        detail.setMake(car.getMake());
+        detail.setModel(car.getModel());
+        detail.setColor(car.getColor());
+        detail.setYear(car.getYear());
+        detail.setPrice(car.getPrice());
+        detail.setLocation(car.getLocation());
+        detail.setAvailableFrom(car.getAvailableFrom());
+        detail.setRating(car.getRating());
+        List<String> images = new ArrayList<>();
         if (car.getImages() != null && !car.getImages().isEmpty()) {
             for (CarImage image : car.getImages()) {
-                response.getImagesPaths().add(image.getPath());
+                images.add(image.getPath());
             }
+            detail.setImages(images);
         } else {
-            response.setImagesPaths(null);
+            detail.setImages(null);
         }
-        if (car.getReviews() != null && !car.getReviews().isEmpty()) {
-            for (Review review : car.getReviews()) {
-                response.getReviews().add(review.getComment());
-            }
-        } else {
-            response.setReviews(null);
-        }
-
-        return null;
+        detail.setFonImage(car.getFonImage().getPath());
+        detail.setDescription(car.getDescription());
+        return detail;
     }
 
     @Override

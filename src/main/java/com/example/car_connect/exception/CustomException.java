@@ -18,7 +18,7 @@ public class CustomException extends RuntimeException {
     public String toString() {
         return  "CustomException {" +
                 "httpStatus: " + status +
-                ", message: " + getStatus() +
+                ", message: " + getMessage() +
                 "}";
     }
 }

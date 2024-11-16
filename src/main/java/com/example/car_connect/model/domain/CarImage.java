@@ -20,5 +20,8 @@ public class CarImage {
 
     @ManyToOne
     @JoinColumn(name = "car_id", referencedColumnName = "id")
+    private Car carDetail;
+
+    @OneToOne(mappedBy = "fonImage")
     private Car car;
 }

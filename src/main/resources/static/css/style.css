@@ -1,7 +1,7 @@
 /********** Template CSS **********/
 :root {
-    --primary: #F77D0A;
-    --secondary: #2B2E4A;
+    --primary: #40E0D0;
+    --secondary: #393c60;
     --light: #F4F5F8;
     --dark: #1C1E32;
 }
@@ -181,6 +181,50 @@ h6,
     color: var(--light);
 }
 
+/* Общее оформление box */
+.custom-box {
+    height: 400px; /* Фиксированная высота */
+    width: 100%; /* Ширина зависит от родителя */
+    display: flex; /* Используем Flexbox */
+    flex-direction: column; /* Элементы располагаются вертикально */
+    justify-content: space-between; /* Равномерное распределение содержимого */
+    align-items: center; /* Центровка содержимого по горизонтали */
+    border: 1px solid #ddd; /* Рамка */
+    padding: 15px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитывайте padding в размере box */
+    background-color: #fff; /* Белый фон */
+}
+
+/* Изображения: Подгонка размера */
+.custom-box img {
+    max-height: 180px; /* Ограничение по высоте */
+    object-fit: cover; /* Пропорциональная подгонка */
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+/* Заголовки: Центровка */
+.custom-box h4 {
+    font-size: 1.8rem; /* Размер текста */
+    text-align: center; /* Выравнивание по центру */
+    margin-bottom: auto; /* Автоматический отступ снизу для равномерности */
+    flex-grow: 1; /* Растягивается, чтобы занять свободное пространство */
+    display: flex; /* Flexbox для управления выравниванием */
+    justify-content: center; /* Центровка по горизонтали */
+    align-items: flex-end; /* Центровка по вертикали (начало текста) */
+    white-space: nowrap; /* Запретить перенос строк */
+    overflow: hidden; /* Скрыть текст, который не помещается */
+}
+
+
+/* Кнопка внизу */
+.custom-box .btn {
+    margin-top: auto;
+    margin-bottom: auto; /* Убираем фиксированный отступ */
+    align-self: center;
+    position: relative; /* Позиционируем относительно родителя */
+    top: -10px; /* Поднимаем кнопку на 20px вверх */
+}
+
 .team-item {
     padding: 30px 30px 0 30px;
     text-align: center;
@@ -313,3 +357,20 @@ h6,
     background: linear-gradient(rgba(28, 30, 50, .9), rgba(28, 30, 50, .9)), url(../img/bg-banner.jpg);
     background-attachment: fixed;
 }
+
+@media (max-width: 768px) {
+    .custom-box {
+        height: auto; /* Высота автоматически подстраивается */
+        padding: 10px; /* Уменьшить внутренние отступы */
+    }
+
+    .custom-box img {
+        max-height: 100px; /* Уменьшить высоту изображения на мобильных */
+    }
+
+    .custom-box .btn {
+        top: 0; /* Убираем подъем кнопки на мобильных */
+        margin-top: 5px; /* Добавляем отступ сверху для мобильных */
+    }
+}
+

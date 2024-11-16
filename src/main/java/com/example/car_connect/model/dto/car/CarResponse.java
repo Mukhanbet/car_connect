@@ -12,10 +12,5 @@ public class CarResponse {
     private String model;
     private Integer year;
     private Double price;
-    private String location;
-    private LocalDate availableFrom;
-    private Double rating;
-    private String description;
-    private List<String> imagesPaths;
-    private List<String> reviews;
+    private String fonImage;
 }

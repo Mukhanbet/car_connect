@@ -3,14 +3,22 @@ package com.example.car_connect.controller;
 import com.example.car_connect.model.dto.auth.LoginRequest;
 import com.example.car_connect.model.dto.auth.RegisterRequest;
 import com.example.car_connect.model.dto.car.CarFilter;
+import com.example.car_connect.model.dto.car.CarResponse;
+import com.example.car_connect.service.CarService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/pages")
+@AllArgsConstructor
 public class PageController {
+    private final CarService carService;
+
     @GetMapping("/auth")
     public String login(Model model) {
         model.addAttribute("registerRequest", new RegisterRequest());
@@ -36,6 +44,8 @@ public class PageController {
 
     @GetMapping("/car")
     public String car(Model model) {
+        List<CarResponse> cars = carService.all();
+        model.addAttribute("cars", cars);
         return "car";
     }
 
