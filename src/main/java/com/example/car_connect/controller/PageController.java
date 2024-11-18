@@ -4,14 +4,18 @@ import com.example.car_connect.model.dto.auth.LoginRequest;
 import com.example.car_connect.model.dto.auth.RegisterRequest;
 import com.example.car_connect.model.dto.car.CarFilter;
 import com.example.car_connect.model.dto.car.CarResponse;
+import com.example.car_connect.model.dto.car.CarResponseDetail;
 import com.example.car_connect.service.CarService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/pages")
@@ -37,8 +41,15 @@ public class PageController {
         return "about";
     }
 
-    @GetMapping("/booking")
-    public String booking(Model model) {
+    @GetMapping("/booking/{id}")
+    public String booking(
+            @PathVariable UUID id,
+            @ModelAttribute
+            Model model
+    ) {
+        CarResponseDetail detail = carService.getDetail(id);
+
+        model.addAttribute("detail", detail);
         return "booking";
     }
 
@@ -54,8 +65,17 @@ public class PageController {
         return "contact";
     }
 
-    @GetMapping("/detail")
-    public String detail(Model model) {
+    @GetMapping("/detail/{id}")
+    public String detail(
+            @PathVariable UUID id,
+            Model model
+    ) {
+        CarResponseDetail detail = carService.getDetail(id);
+        List<CarResponse> cars = carService.getRelatedCars(id);
+
+        model.addAttribute("detail", detail);
+        model.addAttribute("relatedCars", cars);
+
         return "detail";
     }
 

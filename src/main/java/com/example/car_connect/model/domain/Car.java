@@ -18,6 +18,8 @@ public class Car {
 
     private String make;
     private String model;
+    private String transmission;
+    private double mileage;
     private String color;
     private int year;
     private double price;

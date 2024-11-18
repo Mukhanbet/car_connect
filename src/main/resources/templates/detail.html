@@ -80,10 +80,9 @@
                         <a href="/pages/about" class="nav-item nav-link">About</a>
                         <a href="/pages/service" class="nav-item nav-link">Service</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cars</a>
+                            <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Cars</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="/pages/car" class="dropdown-item">Car Listing</a>
-                                <a href="/pages/detail" class="dropdown-item">Car Detail</a>
+                                <a href="/pages/car" class="dropdown-item active">Car Listing</a>
                                 <a href="/pages/booking" class="dropdown-item">Car Booking</a>
                             </div>
                         </div>
@@ -161,122 +160,59 @@
     </div>
     <!-- Page Header Start -->
 
-
     <!-- Detail Start -->
     <div class="container-fluid pt-5">
-        <div class="container pt-5">
-            <div class="row">
-                <div class="col-lg-8 mb-5">
-                    <h1 class="display-4 text-uppercase mb-5">Mercedes Benz R3</h1>
-                    <div class="row mx-n2 mb-3">
-                        <div class="col-md-3 col-6 px-2 pb-2">
-                            <img class="img-fluid w-100" th:src="@{/img/gallery-1.jpg}" alt="">
-                        </div>
-                        <div class="col-md-3 col-6 px-2 pb-2">
-                            <img class="img-fluid w-100" th:src="@{/img/gallery-2.jpg}" alt="">
-                        </div>
-                        <div class="col-md-3 col-6 px-2 pb-2">
-                            <img class="img-fluid w-100" th:src="@{/img/gallery-3.jpg}" alt="">
-                        </div>
-                        <div class="col-md-3 col-6 px-2 pb-2">
-                            <img class="img-fluid w-100" th:src="@{/img/gallery-4.jpg}" alt="">
-                        </div>
-                    </div>
-                    <p>Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata consetetur invidunt magna dolores aliquyam dolores dolore. Amet erat amet et magna</p>
-                    <div class="row pt-2">
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-car text-primary mr-2"></i>
-                            <span>Model: 2015</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-cogs text-primary mr-2"></i>
-                            <span>Automatic</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-road text-primary mr-2"></i>
-                            <span>20km/liter</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-eye text-primary mr-2"></i>
-                            <span>GPS Navigation</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-car text-primary mr-2"></i>
-                            <span>Model: 2015</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-cogs text-primary mr-2"></i>
-                            <span>Automatic</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-road text-primary mr-2"></i>
-                            <span>20km/liter</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-eye text-primary mr-2"></i>
-                            <span>GPS Navigation</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-car text-primary mr-2"></i>
-                            <span>Model: 2015</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-cogs text-primary mr-2"></i>
-                            <span>Automatic</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-road text-primary mr-2"></i>
-                            <span>20km/liter</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-eye text-primary mr-2"></i>
-                            <span>GPS Navigation</span>
-                        </div>
-                    </div>
-               </div>
+        <div class="row justify-content-center">
+            <!-- Колонка теперь занимает всю ширину, и все будет по центру -->
+            <div class="col-12 mb-5 text-center">
+                <h1 class="display-4 text-uppercase mb-5" th:text="${detail.make} + ' ' + ${detail.model}"></h1>
 
-                <div class="col-lg-4 mb-5">
-                    <div class="bg-secondary p-5">
-                        <h3 class="text-primary text-center mb-4">Check Availability</h3>
-                        <div class="form-group">
-                            <select class="custom-select px-4" style="height: 50px;">
-                                <option selected>Pickup Location</option>
-                                <option value="1">Location 1</option>
-                                <option value="2">Location 2</option>
-                                <option value="3">Location 3</option>
-                            </select>
+                <!-- Галерея изображений -->
+                <div class="row mx-n2 mb-3 custom-image-gallery">
+                    <div th:each="image : ${detail.images}" class="col-md-3 col-6 px-2 pb-2">
+                        <div class="image-wrapper">
+                            <img class="cool-image" th:src="${image}" alt="Gallery Image">
                         </div>
-                        <div class="form-group">
-                            <select class="custom-select px-4" style="height: 50px;">
-                                <option selected>Drop Location</option>
-                                <option value="1">Location 1</option>
-                                <option value="2">Location 2</option>
-                                <option value="3">Location 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <div class="date" id="date1" data-target-input="nearest">
-                                <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Date"
-                                    data-target="#date1" data-toggle="datetimepicker" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="time" id="time1" data-target-input="nearest">
-                                <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Time"
-                                    data-target="#time1" data-toggle="datetimepicker" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <select class="custom-select px-4" style="height: 50px;">
-                                <option selected>Select Person</option>
-                                <option value="1">Person 1</option>
-                                <option value="2">Person 2</option>
-                                <option value="3">Person 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group mb-0">
-                            <button class="btn btn-primary btn-block" type="submit" style="height: 50px;">Check Now</button>
-                        </div>
+                    </div>
+                </div>
+
+                <div class="car-info-container">
+                    <p class="display-6 car-information" th:text="${detail.description}"></p>
+                </div>
+
+                <!-- Информация об автомобиле, теперь все в одной строке -->
+                <div class="row pt-2 justify-content-center">
+                    <div class="px-2 col-1">
+                        <i class="fa fa-car text-primary mr-2"></i>
+                        <span th:text="${detail.year}"></span>
+                    </div>
+                    <div class="px-2 col-1">
+                        <i class="fa fa-cogs text-primary mr-2"></i>
+                        <span th:text="${detail.transmission}"></span>
+                    </div>
+                    <div class="px-2 col-1">
+                        <i class="fa fa-road text-primary mr-2"></i>
+                        <span th:text="${detail.mileage} + 'K'"></span>
+                    </div>
+                    <div class="px-2 col-1">
+                        <i class="fa fa-tint text-primary mr-2"></i>
+                        <span th:text="${detail.color}"></span>
+                    </div>
+                    <div class="px-2 col-1">
+                        <i class="fa fa-money-bill-wave text-primary mr-2"></i>
+                        <span th:text="${detail.price}"></span>
+                    </div>
+                    <div class="px-2">
+                        <i class="fa fa-calendar-check text-primary mr-2"></i>
+                        <span th:text="${detail.availableFrom}"></span>
+                    </div>
+                    <div class="px-2 col-1">
+                        <i class="fa fa-map-marker-alt text-primary mr-2"></i>
+                        <span th:text="${detail.location}"></span>
+                    </div>
+                    <div class="px-2 col-1">
+                        <i class="fa fa-star text-primary mr-2"></i>
+                        <span th:text="${detail.rating}"></span>
                     </div>
                 </div>
             </div>
@@ -290,81 +226,26 @@
         <div class="container pb-5">
             <h2 class="mb-4">Related Cars</h2>
             <div class="owl-carousel related-carousel position-relative" style="padding: 0 30px;">
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" th:src="@{/img/car-rent-1.png}" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
+                <div class="rent-item custom-box" th:each="car : ${relatedCars}">
+                    <a th:href="@{'/pages/detail/' + ${car.id}}" class="text-decoration-none">
+                        <img class="img-fluid mb-4" th:src="@{${car.fonImage}}" alt="">
+                        <h4 class="text-uppercase mb-4" th:text="${car.make} + ' ' + ${car.model}"></h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span th:text="${car.year}"></span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span th:text="${car.transmission}"></span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span th:text="${car.mileage} + 'K'"></span>
+                            </div>
                         </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                </div>
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" th:src="@{/img/car-rent-2.png}" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
-                        </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                </div>
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" th:src="@{/img/car-rent-3.png}" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
-                        </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                </div>
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" th:src="@{/img/car-rent-4.png}" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
-                        </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
+                        <a class="btn btn-primary px-3" href="" th:text="'$' + ${car.price} + '/Day'"></a>
+                    </a>
                 </div>
             </div>
         </div>

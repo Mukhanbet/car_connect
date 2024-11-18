@@ -20,6 +20,8 @@ public class CarMapperImpl implements CarMapper {
         Car car = new Car();
         car.setMake(request.getMake());
         car.setModel(request.getModel());
+        car.setTransmission(request.getTransmission());
+        car.setMileage(request.getMileage());
         car.setColor(request.getColor());
         car.setYear(request.getYear());
         car.setPrice(request.getPrice());
@@ -34,8 +36,11 @@ public class CarMapperImpl implements CarMapper {
     @Override
     public CarResponse toCarResponse(Car car) {
         CarResponse response = new CarResponse();
+        response.setId(car.getId());
         response.setMake(car.getMake());
         response.setModel(car.getModel());
+        response.setTransmission(car.getTransmission());
+        response.setMileage(car.getMileage());
         response.setYear(car.getYear());
         response.setPrice(car.getPrice());
         if (car.getFonImage() != null) {
@@ -50,6 +55,8 @@ public class CarMapperImpl implements CarMapper {
         detail.setId(car.getId());
         detail.setMake(car.getMake());
         detail.setModel(car.getModel());
+        detail.setTransmission(car.getTransmission());
+        detail.setMileage(car.getMileage());
         detail.setColor(car.getColor());
         detail.setYear(car.getYear());
         detail.setPrice(car.getPrice());

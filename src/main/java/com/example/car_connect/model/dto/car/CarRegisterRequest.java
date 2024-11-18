@@ -11,6 +11,9 @@ public class CarRegisterRequest {
     private String make;
     @Size(min = 2, max = 14, message = "Size: min = 2, max = 14")
     private String model;
+    @Size(min = 2, max = 14, message = "Size: min = 2, max = 14")
+    private String transmission;
+    private double mileage;
     @Size(min = 2, max = 20, message = "Size: min = 2, max = 20")
     private String color;
     @Max(value = 2024, message = "The year cannot be greater than 2024")

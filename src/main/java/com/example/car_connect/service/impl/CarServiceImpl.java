@@ -1,5 +1,6 @@
 package com.example.car_connect.service.impl;
 
+import com.example.car_connect.exception.CustomException;
 import com.example.car_connect.mapper.CarMapper;
 import com.example.car_connect.model.domain.Car;
 import com.example.car_connect.model.domain.User;
@@ -7,8 +8,6 @@ import com.example.car_connect.model.dto.car.CarFilter;
 import com.example.car_connect.model.dto.car.CarRegisterRequest;
 import com.example.car_connect.model.dto.car.CarResponse;
 import com.example.car_connect.model.dto.car.CarResponseDetail;
-import com.example.car_connect.model.dto.image.CarFonImageResponse;
-import com.example.car_connect.model.dto.image.CarImageResponse;
 import com.example.car_connect.repository.CarRepository;
 import com.example.car_connect.service.AuthService;
 import com.example.car_connect.service.CarImageService;
@@ -18,6 +17,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,8 +53,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<CarResponse> getRelatedCars(CarFilter filter) {
-        return carMapper.toCarResponseList(carRepository.findAllRelatedCars(filter.getMake(), filter.getModel(), filter.getColor(), filter.getYear(), filter.getPrice(), filter.getLocation(), filter.getAvailableFrom(), filter.getRating()));
+    public List<CarResponse> getRelatedCars(UUID id) {
+        Car car = carRepository.findById(id).orElseThrow(() -> new CustomException("Car not found", HttpStatus.NOT_FOUND));
+        return carMapper.toCarResponseList(carRepository.findAllRelatedCars(car.getMake(), car.getModel(), car.getColor(), car.getYear(), car.getPrice(), car.getLocation(), car.getRating()));
     }
 
     @Override
