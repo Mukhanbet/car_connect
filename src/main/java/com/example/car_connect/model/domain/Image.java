@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-public class CarImage {
+public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,4 +24,7 @@ public class CarImage {
 
     @OneToOne(mappedBy = "fonImage")
     private Car car;
+
+    @OneToOne(mappedBy = "image")
+    private User user;
 }

@@ -38,6 +38,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner")
     private List<Car> car;
 
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn
+    private Image image;
+
     public User(UUID id, String name, String email, String password, String phone, Role role) {
         this.id = id;
         this.name = name;

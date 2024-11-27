@@ -18,6 +18,8 @@ public class Car {
 
     private String make;
     private String model;
+    private String transmission;
+    private double mileage;
     private String color;
     private int year;
     private double price;
@@ -27,11 +29,11 @@ public class Car {
     private String description;
 
     @OneToMany(mappedBy = "carDetail")
-    private List<CarImage> images;
+    private List<Image> images;
 
     @OneToOne
     @JoinColumn
-    private CarImage fonImage;
+    private Image fonImage;
 
     @OneToMany(mappedBy = "car")
     private List<Review> reviews;

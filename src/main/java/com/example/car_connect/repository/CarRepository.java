@@ -21,7 +21,7 @@ public interface CarRepository extends JpaRepository<Car, UUID>, JpaSpecificatio
             "OR (:year IS NULL OR year = :year) " +
             "OR (:price IS NULL OR price = :price) " +
             "OR (:location IS NULL OR location LIKE CONCAT('%', :location, '%')) " +
-            "OR (:availableFrom IS NULL OR available_from <= :availableFrom) " +
+//            "OR (:availableFrom IS NULL OR available_from <= :availableFrom) " +
             "OR (:rating IS NULL OR rating = :rating)",
             nativeQuery = true
     )
@@ -32,8 +32,7 @@ public interface CarRepository extends JpaRepository<Car, UUID>, JpaSpecificatio
             @Param("year") Integer year,
             @Param("price") Double price,
             @Param("location") String location,
-            @Param("availableFrom") LocalDate availableFrom,
+//            @Param("availableFrom") LocalDate availableFrom,
             @Param("rating") Double rating
     );
-
 }

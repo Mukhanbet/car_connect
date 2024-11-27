@@ -21,7 +21,6 @@ public class CarFilter {
     @NotBlank(message = "Location cannot be empty or consist only of spaces")
     private String location;
     @FutureOrPresent(message = "Start date must be in the present or future")
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate availableFrom;
     private Double rating;
 }

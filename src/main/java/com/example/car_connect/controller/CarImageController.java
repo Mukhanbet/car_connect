@@ -1,8 +1,7 @@
 package com.example.car_connect.controller;
 
-import com.example.car_connect.model.domain.CarImage;
 import com.example.car_connect.model.dto.image.CarImageResponse;
-import com.example.car_connect.service.CarImageService;
+import com.example.car_connect.service.ImageService;
 import com.google.common.net.HttpHeaders;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -18,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @RequestMapping("/images")
 public class CarImageController {
-    private final CarImageService carImageService;
+    private final ImageService imageService;
 
     @PostMapping("/upload/{carId}")
     public CarImageResponse uploadCarImage(
@@ -26,7 +25,7 @@ public class CarImageController {
             @RequestPart MultipartFile fonImage,
             @PathVariable UUID carId
     ) {
-        return carImageService.uploadCarImage(images, fonImage, carId);
+        return imageService.uploadCarImage(images, fonImage, carId);
     }
 
     @GetMapping("/cars/{carId}")
@@ -35,7 +34,7 @@ public class CarImageController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return carImageService.getImages(carId, page, size);
+        return imageService.getImages(carId, page, size);
     }
 
     @GetMapping("/{fileName}")
@@ -48,11 +47,11 @@ public class CarImageController {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + fileName + "\"")
-                .body(carImageService.downloadCarImage(fileName));
+                .body(imageService.downloadCarImage(fileName));
     }
 
     @DeleteMapping("/delete/{imageId}")
     public void deleteCarImage(@PathVariable UUID imageId) {
-        carImageService.deleteCarImage(imageId);
+        imageService.deleteCarImage(imageId);
     }
 }
