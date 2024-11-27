@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ROYAL CARS - Car Rental HTML Template</title>
+    <title>CAR CONNECT</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -69,7 +69,7 @@
         <div class="position-relative px-lg-5" style="z-index: 9;">
             <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
                 <a href="" class="navbar-brand">
-                    <h1 class="text-uppercase text-primary mb-1">Royal Cars</h1>
+                    <h1 class="text-uppercase text-primary mb-1">Car Connect</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -164,25 +164,27 @@
     <!-- Detail Start -->
     <div class="container-fluid pt-5">
         <div class="container pt-5 pb-3">
-            <h1 class="display-4 text-uppercase mb-5">Mercedes Benz R3</h1>
+            <h1 class="display-4 text-uppercase mb-5" th:text="${detail.make} + ' ' + ${detail.model}">Car Make and Model</h1>
             <div class="row align-items-center pb-2">
                 <div class="col-lg-6 mb-4">
-                    <img class="img-fluid" th:src="@{/img/bg-banner.jpg}" alt="">
+                    <img class="img-fluid" th:src="@{${detail.fonImage}}" alt="Car Image">
                 </div>
                 <div class="col-lg-6 mb-4">
-                    <h4 class="mb-2">$99.00/Day</h4>
+                    <h4 class="mb-2" th:text="'$' + ${detail.price}">Car Price</h4>
                     <div class="d-flex mb-3">
                         <h6 class="mr-2">Rating:</h6>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small>(250)</small>
+                            <small th:each="star : ${#numbers.sequence(1, detail.rating.intValue())}">
+                                <i class="fa fa-star text-primary"></i>
+                            </small>
+                            <small th:if="${detail.rating % 1 != 0}">
+                                <i class="fa fa-star-half-alt text-primary"></i>
+                            </small>
+                            <small th:text="'(' + ${detail.rating} + ')'"></small>
                         </div>
                     </div>
-                    <p>Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata consetetur invidunt</p>
+                    <p th:text="${detail.description}">Car description</p>
                     <div class="d-flex pt-1">
                         <h6>Share on:</h6>
                         <div class="d-inline-flex">
@@ -195,53 +197,28 @@
                 </div>
             </div>
             <div class="row mt-n3 mt-lg-0 pb-4">
-                <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-car text-primary mr-2"></i>
-                    <span>Model: 2015</span>
+                <div class="col-md-3 col-6 mb-2" th:each="info : ${detail.images}">
+                    <img th:src="@{${info}}" alt="Related Image" class="img-fluid mb-2">
                 </div>
                 <div class="col-md-3 col-6 mb-2">
                     <i class="fa fa-cogs text-primary mr-2"></i>
-                    <span>Automatic</span>
+                    <span th:text="'Transmission: ' + ${detail.transmission}">Automatic</span>
                 </div>
                 <div class="col-md-3 col-6 mb-2">
                     <i class="fa fa-road text-primary mr-2"></i>
-                    <span>20km/liter</span>
+                    <span th:text="'Mileage: ' + ${detail.mileage} + ' km/l'">20km/liter</span>
                 </div>
                 <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-eye text-primary mr-2"></i>
-                    <span>GPS Navigation</span>
+                    <i class="fa fa-paint-brush text-primary mr-2"></i>
+                    <span th:text="'Color: ' + ${detail.color}">Black</span>
                 </div>
                 <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-car text-primary mr-2"></i>
-                    <span>Model: 2015</span>
+                    <i class="fa fa-calendar text-primary mr-2"></i>
+                    <span th:text="'Year: ' + ${detail.year}">2015</span>
                 </div>
                 <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-cogs text-primary mr-2"></i>
-                    <span>Automatic</span>
-                </div>
-                <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-road text-primary mr-2"></i>
-                    <span>20km/liter</span>
-                </div>
-                <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-eye text-primary mr-2"></i>
-                    <span>GPS Navigation</span>
-                </div>
-                <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-car text-primary mr-2"></i>
-                    <span>Model: 2015</span>
-                </div>
-                <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-cogs text-primary mr-2"></i>
-                    <span>Automatic</span>
-                </div>
-                <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-road text-primary mr-2"></i>
-                    <span>20km/liter</span>
-                </div>
-                <div class="col-md-3 col-6 mb-2">
-                    <i class="fa fa-eye text-primary mr-2"></i>
-                    <span>GPS Navigation</span>
+                    <i class="fa fa-map-marker text-primary mr-2"></i>
+                    <span th:text="'Location: ' + ${detail.location}">City</span>
                 </div>
             </div>
         </div>

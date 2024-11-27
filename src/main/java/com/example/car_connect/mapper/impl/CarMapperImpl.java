@@ -2,8 +2,7 @@ package com.example.car_connect.mapper.impl;
 
 import com.example.car_connect.mapper.CarMapper;
 import com.example.car_connect.model.domain.Car;
-import com.example.car_connect.model.domain.CarImage;
-import com.example.car_connect.model.domain.Review;
+import com.example.car_connect.model.domain.Image;
 import com.example.car_connect.model.domain.User;
 import com.example.car_connect.model.dto.car.CarRegisterRequest;
 import com.example.car_connect.model.dto.car.CarResponse;
@@ -65,7 +64,7 @@ public class CarMapperImpl implements CarMapper {
         detail.setRating(car.getRating());
         List<String> images = new ArrayList<>();
         if (car.getImages() != null && !car.getImages().isEmpty()) {
-            for (CarImage image : car.getImages()) {
+            for (Image image : car.getImages()) {
                 images.add(image.getPath());
             }
             detail.setImages(images);

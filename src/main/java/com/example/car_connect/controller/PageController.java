@@ -44,7 +44,6 @@ public class PageController {
     @GetMapping("/booking/{id}")
     public String booking(
             @PathVariable UUID id,
-            @ModelAttribute
             Model model
     ) {
         CarResponseDetail detail = carService.getDetail(id);

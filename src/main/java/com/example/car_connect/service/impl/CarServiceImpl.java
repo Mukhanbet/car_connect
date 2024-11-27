@@ -10,7 +10,7 @@ import com.example.car_connect.model.dto.car.CarResponse;
 import com.example.car_connect.model.dto.car.CarResponseDetail;
 import com.example.car_connect.repository.CarRepository;
 import com.example.car_connect.service.AuthService;
-import com.example.car_connect.service.CarImageService;
+import com.example.car_connect.service.ImageService;
 import com.example.car_connect.service.CarService;
 import com.example.car_connect.specification.CarSpecification;
 import lombok.AllArgsConstructor;
@@ -29,14 +29,14 @@ import java.util.UUID;
 public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
     private final CarMapper carMapper;
-    private final CarImageService carImageService;
+    private final ImageService imageService;
     private final AuthService authService;
 
     @Override
     public CarResponseDetail register(CarRegisterRequest request, List<MultipartFile> images, MultipartFile fonImage, String token) {
         User owner = authService.getUserFromToken(token);
         Car car = carRepository.save(carMapper.toCar(request, owner));
-        carImageService.uploadCarImage(images, fonImage, car.getId());
+        imageService.uploadCarImage(images, fonImage, car.getId());
         return carMapper.toResponseDetail(car);
     }
 

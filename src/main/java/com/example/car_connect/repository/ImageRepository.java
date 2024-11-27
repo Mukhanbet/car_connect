@@ -1,7 +1,7 @@
 package com.example.car_connect.repository;
 
 import com.example.car_connect.model.domain.Car;
-import com.example.car_connect.model.domain.CarImage;
+import com.example.car_connect.model.domain.Image;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CarImageRepository extends JpaRepository<CarImage, UUID> {
-    List<CarImage> findAllByCar(Car car, PageRequest pageRequest);
-    Optional<CarImage> findByName(String name);
+public interface ImageRepository extends JpaRepository<Image, UUID> {
+    List<Image> findAllByCar(Car car, PageRequest pageRequest);
+    Optional<Image> findByName(String name);
 }
