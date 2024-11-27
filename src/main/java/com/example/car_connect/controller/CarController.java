@@ -1,16 +1,10 @@
 package com.example.car_connect.controller;
 
-import com.example.car_connect.model.dto.car.CarFilter;
 import com.example.car_connect.model.dto.car.CarRegisterRequest;
 import com.example.car_connect.model.dto.car.CarResponse;
 import com.example.car_connect.model.dto.car.CarResponseDetail;
-import com.example.car_connect.model.dto.image.CarImageResponse;
-import com.example.car_connect.service.CarImageService;
 import com.example.car_connect.service.CarService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,8 +49,8 @@ public class CarController {
         return carService.all();
     }
 
-    @GetMapping("/related_cars")
-    public List<CarResponse> getRelatedCars(@RequestBody CarFilter filter) {
-        return carService.getRelatedCars(filter);
+    @GetMapping("/related_cars/{id}")
+    public List<CarResponse> getRelatedCars(@PathVariable UUID id) {
+        return carService.getRelatedCars(id);
     }
 }

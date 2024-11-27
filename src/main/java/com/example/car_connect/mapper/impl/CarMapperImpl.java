@@ -2,8 +2,7 @@ package com.example.car_connect.mapper.impl;
 
 import com.example.car_connect.mapper.CarMapper;
 import com.example.car_connect.model.domain.Car;
-import com.example.car_connect.model.domain.CarImage;
-import com.example.car_connect.model.domain.Review;
+import com.example.car_connect.model.domain.Image;
 import com.example.car_connect.model.domain.User;
 import com.example.car_connect.model.dto.car.CarRegisterRequest;
 import com.example.car_connect.model.dto.car.CarResponse;
@@ -20,6 +19,8 @@ public class CarMapperImpl implements CarMapper {
         Car car = new Car();
         car.setMake(request.getMake());
         car.setModel(request.getModel());
+        car.setTransmission(request.getTransmission());
+        car.setMileage(request.getMileage());
         car.setColor(request.getColor());
         car.setYear(request.getYear());
         car.setPrice(request.getPrice());
@@ -34,8 +35,11 @@ public class CarMapperImpl implements CarMapper {
     @Override
     public CarResponse toCarResponse(Car car) {
         CarResponse response = new CarResponse();
+        response.setId(car.getId());
         response.setMake(car.getMake());
         response.setModel(car.getModel());
+        response.setTransmission(car.getTransmission());
+        response.setMileage(car.getMileage());
         response.setYear(car.getYear());
         response.setPrice(car.getPrice());
         if (car.getFonImage() != null) {
@@ -50,6 +54,8 @@ public class CarMapperImpl implements CarMapper {
         detail.setId(car.getId());
         detail.setMake(car.getMake());
         detail.setModel(car.getModel());
+        detail.setTransmission(car.getTransmission());
+        detail.setMileage(car.getMileage());
         detail.setColor(car.getColor());
         detail.setYear(car.getYear());
         detail.setPrice(car.getPrice());
@@ -58,7 +64,7 @@ public class CarMapperImpl implements CarMapper {
         detail.setRating(car.getRating());
         List<String> images = new ArrayList<>();
         if (car.getImages() != null && !car.getImages().isEmpty()) {
-            for (CarImage image : car.getImages()) {
+            for (Image image : car.getImages()) {
                 images.add(image.getPath());
             }
             detail.setImages(images);
