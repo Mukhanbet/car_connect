@@ -18,7 +18,7 @@
 1. Клонируйте репозиторий:
 
     ```bash
-    git clone https://github.com/yourusername/car-connect.git
+    git clone https://github.com/Mukhanbet/car-connect.git
     ```
 
 2. Перейдите в директорию проекта:
